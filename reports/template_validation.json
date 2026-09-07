@@ -9,7 +9,7 @@
   },
   "static_checks": {
     "status": "PASS",
-    "files_checked": 94
+    "files_checked": 95
   },
   "demo_reference_comparison": {
     "status": "PASS"

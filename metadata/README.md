@@ -6,6 +6,13 @@ Provide human-readable records and machine-readable release descriptions.
 
 **Start with:** [croissant.template.json](croissant.template.json).
 
+Complete [the file manifest](file_manifest.csv) with one row per deposited file or
+documented shard. Record bytes and SHA-256 from the actual release, and define what
+the record count means for its modality. A restricted resource still needs a clear
+access route. Cross-reference the [source register](source_register.csv),
+[dictionary](data_dictionary.csv), [processing trace](process_trace.csv) and
+[validation plan](validation_plan.csv). Empty CSV headers are author worksheets.
+
 
 ## Author inputs for the completed project
 
