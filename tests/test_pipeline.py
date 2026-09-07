@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"code"))
@@ -140,6 +141,13 @@ class TemplateTests(unittest.TestCase):
         manifest["files"][0]["sha256"]="0"*64
         self.assertEqual(pipeline.compare(target,manifest)[0]["status"],"fail")
 
+    def test_wrong_reference_data_version_stops_before_outputs(self):
+        cfg=self.altered_config(lambda d:d.update(data_version="teaching-example-2"))
+        target=self.base/"wrong_version"
+        with self.assertRaisesRegex(ValueError,"Reference data_version"):
+            pipeline.run(cfg,target)
+        self.assertFalse(target.exists())
+
     def test_stale_output_rejected(self):
         target=self.run_demo()
         with self.assertRaises(FileExistsError):
@@ -156,6 +164,29 @@ class TemplateTests(unittest.TestCase):
         target=self.base/"project_bundle"
         with self.assertRaises(AuthorInputRequired):
             packaging.prepare(ROOT/"configs/huggingface.project.template.json",target)
+        self.assertFalse(target.exists())
+
+    def test_project_bundle_rejects_evidence_from_another_data_version(self):
+        cfg=read_json(ROOT/"configs/huggingface.demo.json")
+        for item in cfg["files"]:
+            dest=self.base/item["source"];dest.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(ROOT/item["source"],dest)
+        cfg.update(release_kind="project",data_version="test-v2",
+                   source_register_path="evidence/source_register.csv",
+                   validation_report_path="evidence/scientific.json",
+                   croissant_path="evidence/croissant.json",
+                   croissant_validation_report_path="evidence/metadata_check.json")
+        evidence=self.base/"evidence";evidence.mkdir()
+        (evidence/"source_register.csv").write_text("source_id\nsynthetic-test-fixture\n")
+        write_json(evidence/"scientific.json",{
+            "data_version":"test-v1","release_review_complete":True,"unresolved_blockers":[]})
+        write_json(evidence/"croissant.json",{})
+        write_json(evidence/"metadata_check.json",{})
+        manifest=self.base/"release.json";write_json(manifest,cfg)
+        target=self.base/"stale_evidence_bundle"
+        with patch.object(packaging,"ROOT",self.base):
+            with self.assertRaisesRegex(ValueError,"Scientific validation report data_version"):
+                packaging.prepare(manifest,target)
         self.assertFalse(target.exists())
 
     def test_release_checksum_mismatch(self):

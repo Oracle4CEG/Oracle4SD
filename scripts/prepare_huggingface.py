@@ -51,6 +51,8 @@ def prepare(manifest_path, output):
             if not item or not contained(ROOT,item).is_file():
                 raise AuthorInputRequired(f"Supply release evidence: {field}")
         scientific=read_json(contained(ROOT,cfg["validation_report_path"]))
+        if scientific.get("data_version") != cfg["data_version"]:
+            raise ValueError("Scientific validation report data_version does not match the packaged release")
         if scientific.get("release_review_complete") is not True or scientific.get("unresolved_blockers"):
             raise AuthorInputRequired("Complete and document the release review; explain unresolved scientific limits")
         metadata=read_json(contained(ROOT,cfg["croissant_validation_report_path"]))

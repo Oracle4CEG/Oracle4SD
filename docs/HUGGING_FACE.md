@@ -23,6 +23,8 @@ Complete source/rights records, actual scientific validation, the data licence, 
 metadata and the actual validator report. The package must include the completed card
 as README.md, data licence as LICENSE, selected data and validated metadata.
 Each allowlisted entry has source, destination and a verified SHA-256.
+The scientific-validation report's data_version must match the release manifest;
+a completed report from another version cannot be reused without a new review.
 
 The packaging helper checks explicit inputs, permissions confirmation, hashes and
 evidence records. It does not independently certify licences or science and does not

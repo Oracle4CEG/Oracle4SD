@@ -26,6 +26,9 @@ def compare(run_root, manifest):
 
 def run(config, output=None, verify=True):
     cfg = load_config(config, require_demo=True)  # stops blank project runs before any output
+    reference = read_json(ROOT/"tests/reference/demo_manifest.json") if verify else None
+    if verify and reference.get("data_version") != cfg["data_version"]:
+        raise ValueError("Reference data_version does not match the configured data release")
     output = output or ROOT / "runs" / ("demo-" + uuid.uuid4().hex[:10])
     target = fresh_output(output)
     started = time.monotonic()
@@ -33,7 +36,7 @@ def run(config, output=None, verify=True):
                            ("analyze_data","analyze.py"), ("technical_validation","validate.py")]:
         subprocess.run([sys.executable, str(ROOT/"code"/folder/script), "--config", str(Path(config).resolve()),
                         "--run-dir", str(target)], check=True, cwd=ROOT)
-    comparison = compare(target, read_json(ROOT/"tests/reference/demo_manifest.json")) if verify else []
+    comparison = compare(target, reference) if verify else []
     write_json(target/"reports/reproduction.json", {
         "evidence_status": "SYNTHETIC", "data_version": cfg["data_version"], "checks": comparison,
         "comparison": "Byte identity of selected deterministic teaching outputs",
