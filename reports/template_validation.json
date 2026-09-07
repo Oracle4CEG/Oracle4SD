@@ -20,7 +20,7 @@
     "code_cells_executed": 7,
     "execution": "fresh temporary directory, public GitHub clone, local Python",
     "python_version": "3.12.13",
-    "pipeline_commit": "8d03d69bb1806f358fd4ab517ed612c0fba35612",
+    "pipeline_commit": "27a7e1e2a1ff9ca1afcf42f13476cc5cfbadf0e2",
     "reference_files_matched": 5,
     "google_colab_cloud_execution": "NOT_RUN"
   },
