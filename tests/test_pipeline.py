@@ -4,6 +4,7 @@ import copy
 import importlib.util
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -14,7 +15,12 @@ from common import AuthorInputRequired, contained, read_csv, read_json, sha256, 
 
 
 def module(name,path):
-    spec=importlib.util.spec_from_file_location(name,ROOT/path)
+    source=ROOT/path
+    if not source.is_file():
+        raise ImportError(f"Cannot load test module {name}: missing source {source}")
+    spec=importlib.util.spec_from_file_location(name,source)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load test module {name} from {source}: no import loader")
     loaded=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(loaded)
     return loaded
@@ -97,6 +103,22 @@ class TemplateTests(unittest.TestCase):
         write_csv(raw,list(rows[0]),rows)
         with self.assertRaisesRegex(ValueError,"Non-finite"):
             processing.process(ROOT/"configs/demo.json",target)
+
+    def test_invalid_timestamp_has_actionable_message(self):
+        target=self.base/"timestamp";query.acquire(ROOT/"configs/demo.json",target)
+        raw=target/"queried_data/observations.csv"
+        rows=read_csv(raw);rows[0]["timestamp_utc"]="not-a-time"
+        write_csv(raw,list(rows[0]),rows)
+        with self.assertRaisesRegex(ValueError,"ISO 8601 UTC"):
+            processing.process(ROOT/"configs/demo.json",target)
+        self.assertFalse((target/"processed_data/observations.csv").exists())
+
+    def test_optimized_python_cannot_skip_template_checks(self):
+        result=subprocess.run([sys.executable,"-O",str(ROOT/"scripts/check_template.py")],
+                              capture_output=True,text=True)
+        self.assertNotEqual(result.returncode,0)
+        self.assertIn("run Python without -O",result.stderr)
+        self.assertNotIn("Scaffold checks passed",result.stdout)
 
     def test_wrong_conversion_detected(self):
         target=self.run_demo()

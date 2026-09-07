@@ -11,6 +11,8 @@ REQUIRED=["data/data_source","data/queried_data","data/processed_data","code/que
 
 
 def check():
+    if not __debug__:
+        raise RuntimeError("Template validation requires assertions; run Python without -O or -OO.")
     for folder in REQUIRED:
         assert (ROOT/folder/"README.md").is_file(),folder
     public=[]

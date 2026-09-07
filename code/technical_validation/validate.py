@@ -1,6 +1,7 @@
 """Bounded software checks for the teaching fixture; scientific validation remains unevaluated."""
 from pathlib import Path
 import argparse
+from collections import Counter
 from decimal import Decimal, InvalidOperation
 import sys
 
@@ -17,7 +18,8 @@ def validate(config, run_root):
                        "criterion": criterion,
                        "status": "not_evaluated" if n == 0 else ("fail" if failures else "pass")})
     ids = [row["observation_id"] for row in rows]
-    add("unique_nonempty_ids", len(rows), sum(not x or ids.count(x) > 1 for x in ids),
+    id_counts = Counter(ids)
+    add("unique_nonempty_ids", len(rows), sum(not x or id_counts[x] > 1 for x in ids),
         "Every output row has one unique stable ID")
     bad_conversion, measured, bad_missing, bad_origin = 0, 0, 0, 0
     for row in rows:

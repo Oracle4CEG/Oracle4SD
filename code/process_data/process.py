@@ -25,7 +25,10 @@ def process(config, run_root):
         ident = row["observation_id"]
         if not ident or not row["group_id"]:
             raise ValueError("Missing stable identifier")
-        parsed_time = datetime.fromisoformat(row["timestamp_utc"].replace("Z", "+00:00"))
+        try:
+            parsed_time = datetime.fromisoformat(row["timestamp_utc"].replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp_utc must be an ISO 8601 UTC timestamp ending in Z or +00:00") from exc
         if parsed_time.tzinfo is None or parsed_time.utcoffset().total_seconds() != 0:
             raise ValueError("Document UTC timestamps explicitly")
         if ident in seen:

@@ -5,7 +5,7 @@
   "python_version": "3.12.13",
   "unit_tests": {
     "status": "PASS",
-    "count": 14
+    "count": 16
   },
   "static_checks": {
     "status": "PASS",
@@ -42,5 +42,23 @@
     "status": "PASS",
     "format": "editable_svg",
     "rendered_with": "Inkscape"
-  }
+  },
+  "review_fixes": [
+    {
+      "path": "code/process_data/process.py",
+      "change": "Actionable ISO 8601 UTC parse error"
+    },
+    {
+      "path": "code/technical_validation/validate.py",
+      "change": "Linear-time duplicate ID frequencies"
+    },
+    {
+      "path": "scripts/check_template.py",
+      "change": "Fail explicitly when Python assertions are disabled"
+    },
+    {
+      "path": "tests/test_pipeline.py",
+      "change": "Explicit source and loader checks for imports"
+    }
+  ]
 }

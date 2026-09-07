@@ -6,10 +6,12 @@ is included. Scientific adequacy for a future publication remains **NOT_EVALUATE
 
 ## Checks performed for the template
 
-The 14 local Python 3.12 unit tests pass. They cover complete pipeline arithmetic,
+The 16 local Python 3.12 unit tests pass. They cover complete pipeline arithmetic,
 reference comparisons, missing author configuration, checksum mismatch, size limits,
 unsafe paths, conflicting duplicates, non-finite numbers, a deliberately wrong unit
 conversion, empty validation populations, stale outputs and allowlisted release packaging.
+They also check actionable malformed-timestamp errors and refusal to skip template
+checks when Python is run with optimizations.
 
 The offline example produces 6 processed records, including 1 missing temperature and
 5 numeric temperatures with a mean of 14.0000 degrees Celsius. The source remains
