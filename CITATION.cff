@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Cite the exact code commit of this teaching template. Cite research data separately."
+title: "Oracle4SD scientific data project template"
+type: software
+authors:
+  - name: "Oracle4SD contributors"
+repository-code: "https://github.com/sunshineluyao/Oracle4SD"
+license: MIT
+abstract: "A reusable author instruction and reproducibility scaffold with synthetic teaching data."

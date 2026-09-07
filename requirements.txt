@@ -1,0 +1,2 @@
+# Core workflow uses only the Python 3.12 standard library.
+# No third-party dependency installation is needed for the demo or tests.

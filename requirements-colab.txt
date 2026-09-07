@@ -1,0 +1,3 @@
+# The authoring notebook uses these when connected to a real project.
+# The completed project must replace this note with its own tested dependency lock.
+# The runnable repository demo needs no third-party packages.
