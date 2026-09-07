@@ -15,14 +15,22 @@
     "status": "PASS"
   },
   "notebook_execution": {
-    "status": "PENDING_IMMUTABLE_CODE_PIN"
+    "status": "PASS",
+    "notebook": "notebooks/00_runnable_demo.ipynb",
+    "code_cells_executed": 7,
+    "execution": "fresh temporary directory, public GitHub clone, local Python",
+    "python_version": "3.12.13",
+    "pipeline_commit": "b34fce80705f260d57605798b28924a3100d725e",
+    "reference_files_matched": 5,
+    "google_colab_cloud_execution": "NOT_RUN"
   },
   "github_actions": {
     "status": "NOT_RUN",
     "trigger": "workflow_dispatch"
   },
   "hugging_face": {
-    "uploaded": false
+    "uploaded": false,
+    "local_demo_bundle_test": "PASS"
   },
   "scientific_validation": {
     "status": "NOT_EVALUATED"

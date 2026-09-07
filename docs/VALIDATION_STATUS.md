@@ -21,8 +21,10 @@ unexecuted notebook outputs and the editable SVG. See
 
 ## Scope of the available workflows
 
-- The runnable notebook teaches all eight stages using synthetic data. Its code is
-  pinned to an immutable commit; see the validation record for execution evidence.
+- The runnable notebook teaches all eight stages using synthetic data. All seven
+  code cells executed locally in a fresh temporary directory using a public clone
+  of the pinned commit, and all five reference files matched. Google Colab's hosted
+  runtime has not been separately exercised; see the validation record for scope.
 - The general author notebook intentionally requires real project inputs before
   running project operations. Its scientific content has not been completed for you.
 - GitHub Actions is provided as a manual workflow. No hosted Actions run is claimed.
