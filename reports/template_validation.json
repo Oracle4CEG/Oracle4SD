@@ -1,0 +1,38 @@
+{
+  "record_type": "template_software_validation",
+  "date_utc": "2026-09-07",
+  "data_scope": "synthetic_teaching_only",
+  "python_version": "3.12.13",
+  "unit_tests": {
+    "status": "PASS",
+    "count": 14
+  },
+  "static_checks": {
+    "status": "PASS",
+    "files_checked": 94
+  },
+  "demo_reference_comparison": {
+    "status": "PASS"
+  },
+  "notebook_execution": {
+    "status": "PENDING_IMMUTABLE_CODE_PIN"
+  },
+  "github_actions": {
+    "status": "NOT_RUN",
+    "trigger": "workflow_dispatch"
+  },
+  "hugging_face": {
+    "uploaded": false
+  },
+  "scientific_validation": {
+    "status": "NOT_EVALUATED"
+  },
+  "croissant_project_validation": {
+    "status": "NOT_EVALUATED"
+  },
+  "svg_visual_review": {
+    "status": "PASS",
+    "format": "editable_svg",
+    "rendered_with": "Inkscape"
+  }
+}
