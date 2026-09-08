@@ -45,6 +45,11 @@ For Colab, open the badge above. For real projects, complete the
 [eight-part authoring notebook](notebooks/Scientific_Data_Colab_Tutorial_Template.ipynb).
 It deliberately requires author inputs before accessing project data.
 
+The instructor's uploaded [Colab tutorial sample](notebooks/Scientific_Data_Colab_Tutorial_Sample.ipynb)
+is also available here, preserved as supplied. Complete its author inputs for your project.
+
+[![Open the tutorial sample in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/sunshineluyao/Oracle4SD/blob/main/notebooks/Scientific_Data_Colab_Tutorial_Sample.ipynb)
+
 <a id="folders"></a>
 ## Folder map
 
